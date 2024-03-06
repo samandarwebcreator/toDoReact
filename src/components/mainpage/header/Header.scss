@@ -1,0 +1,332 @@
+
+@use "../../../scss/styles.scss" as *;
+@use "../../../scss/veriables.scss" as vars;
+@use "../../../scss/mixins.scss" as mix;
+
+
+.header {
+
+    %df{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .header__bg {
+        background-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0px 0px 17px 15px rgba(12, 21, 28, 0.2);
+    }
+
+    .header__main-box {
+        @extend %df;
+        max-width: 100%;
+    }
+
+    .header__logo-box {
+        @extend %df;
+        max-width: 320px;
+        width: 100%;
+    }
+
+    .websiteLogo {
+        font-size: 32px;
+        font-weight: 700;
+        color: vars.$brand-color;
+    }
+
+    .header__ham-btn {
+        font-size: 20px;
+        border: 2px solid transparent;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 1px 3px 0px 3px;
+        transition: all 0.2s ease-in-out;
+        border-radius: 5px;
+
+        &:active {
+            background-color: vars.$brand-color;
+            color: #ddd;
+        }
+    }
+
+    .header__profile-box {
+        @extend %df;
+        max-width: 150px;
+        width: 100%;
+    }
+
+    .header__profile-box div {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        overflow: hidden;
+        cursor: pointer;
+
+        & p {
+            text-transform: capitalize;
+        }
+    }
+
+    .header__profile-box div img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+
+.todo-list-overlay {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.6);
+    animation: slideIn 0.4s ease-in-out;
+    width: 25%;
+    min-height: 100vh;
+}
+.todo-list-overlay.hide {
+    animation: slideOut 0.5s ease-in-out;
+}
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.todo-list-overlay .navBar__items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding: 10px 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 10px 10px;
+    margin-top: 0;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: vars.$brand-color;
+        color: white;
+        border-color: transparent;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.main__body-box{
+    display: flex;
+    width: 100%;
+   
+
+}
+
+.addTodo__main-box {
+    position: relative;
+    width: 100%;
+    
+    &.navBarOpen {
+        animation: slideInFromRight 0.5s ease-in-out;
+        width: 75%; 
+    }
+    @keyframes slideInFromRight {
+        from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    .addTask__form {
+        transform-origin: bottom;
+        animation: slideInFromBottom 0.5s ease-in-out forwards;
+        display: flex;
+        flex-direction: column;
+
+        &.open {
+            animation: slideOutFromBottom 0.5s ease-in-out forwards;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+
+            label {
+                font-weight: bold;
+                color: white;
+                font-size: 20px;
+            }
+
+            input[type="text"] {
+                padding: 12px 8px;
+                border: 2px solid transparent;
+                border-radius: 4px;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.6);
+                transition: border-color 0.3s ease;
+                color: vars.$brand-color; 
+                font-weight: 600;
+            
+                &:focus {
+                    outline: none; 
+                    border-color: white;
+                    box-shadow: 0 0 0 1px rgba(0, 86, 179, 0.3); 
+                }
+
+                &::placeholder{
+                    color: vars.$brand-color;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+    @keyframes slideInFromBottom {
+        0% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutFromBottom {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+
+    .plus__button {
+        @include mix.brand-btn();
+    }
+}
+
+.addTodo__title {
+    color: white;
+    font-size: 32px;
+}
+
+.submitButton {
+    @include mix.submit-btn();
+}
+
+.plus__icon {
+    display: block;
+    animation: rotate180 0.7s forwards;
+
+    &.invisible {
+        display: none;
+    }
+}
+
+.checked__icon {
+    display: none;
+    animation: rotate180 0.7s forwards;
+
+    &.visible {
+        display: block;
+    }
+}
+
+@keyframes rotate180 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+
+    
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 500px;
+}
+
+.modal p {
+    margin-bottom: 10px;
+}
+
+.modal button {
+    background-color: vars.$brand-color;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    opacity: 0.8;
+}
+
+
+
+.delete-button,
+.edit-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+}
+
+.delete-button:hover,
+.edit-button:hover {
+    background-color: transparent;
+}
+
+
+.delete-button{
+    margin-right: 10px;
+    color: red;
+}
+
+.edit-button{
+    color: blue;
+}
+
+}
